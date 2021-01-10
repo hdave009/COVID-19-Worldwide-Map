@@ -1,0 +1,26 @@
+﻿<Window x:Class="COVID_19_Information.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:COVID_19_Information"
+        mc:Ignorable="d"
+        Loaded="Window_Loaded"
+        Title="COVID-19 Information" Height="450" Width="800" Icon="covid-virus.png">
+    <Grid Margin="0,0,2,2">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="refreshButton" Grid.ColumnSpan="2" Content="Refresh" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="refreshButton_Click" Margin="0,5,0,0"/>
+        <DataGrid x:Name="dataTable" IsReadOnly="True" Grid.ColumnSpan="2" HorizontalAlignment="Center" Height="Auto" Margin="0,30,0,0" VerticalAlignment="Center" ItemsSource="{Binding Countries}" ColumnWidth="*">
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Background" Value="Gray"/>
+                    <Setter Property="FontWeight" Value="SemiBold"/>
+                </Style>
+            </DataGrid.Resources>
+        </DataGrid>
+        <Button x:Name="mapButton" Grid.ColumnSpan="2" Content="View Map" Click="mapButton_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="80,5,0,0"/>
+    </Grid>
+</Window>

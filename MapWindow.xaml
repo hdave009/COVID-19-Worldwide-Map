@@ -1,0 +1,17 @@
+﻿<Window x:Class="COVID_19_Information.MapWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:COVID_19_Information" xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+        mc:Ignorable="d"
+        Title="Map" Height="475" Width="800" Icon="covid-virus.png">
+    <Grid>
+        <Button x:Name="tableButton" Click="tableButton_Click" Content="Back to Table" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75"/>
+        <esri:MapView x:Name="mapView" Margin="0,35,0,0">
+            <esri:MapView.GraphicsOverlays>
+                <esri:GraphicsOverlay x:Name="MapGraphics"/>
+            </esri:MapView.GraphicsOverlays>
+        </esri:MapView>
+    </Grid>
+</Window>
