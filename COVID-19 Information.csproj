@@ -40,12 +40,14 @@
     <Reference Include="Esri.ArcGISRuntime, Version=100.7.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
       <HintPath>packages\Esri.ArcGISRuntime.WPF.100.7.0\lib\net461\Esri.ArcGISRuntime.dll</HintPath>
     </Reference>
-    <Reference Include="HtmlAgilityPack, Version=1.11.23.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>packages\HtmlAgilityPack.1.11.23\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="HtmlAgilityPack, Version=1.11.34.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>packages\HtmlAgilityPack.1.11.34\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Device" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -107,7 +109,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Assets\countriesandcoordinates.csv" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -120,12 +121,17 @@
   <ItemGroup>
     <Resource Include="covid-virus.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="packages\Esri.ArcGISRuntime.WPF.100.7.0\build\net461\Esri.ArcGISRuntime.WPF.targets" Condition="Exists('packages\Esri.ArcGISRuntime.WPF.100.7.0\build\net461\Esri.ArcGISRuntime.WPF.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
+    <Error Condition="!Exists('packages\Esri.ArcGISRuntime.runtimes.win.100.11.2\build\net461\Esri.ArcGISRuntime.runtimes.win.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Esri.ArcGISRuntime.runtimes.win.100.11.2\build\net461\Esri.ArcGISRuntime.runtimes.win.targets'))" />
     <Error Condition="!Exists('packages\Esri.ArcGISRuntime.WPF.100.7.0\build\net461\Esri.ArcGISRuntime.WPF.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Esri.ArcGISRuntime.WPF.100.7.0\build\net461\Esri.ArcGISRuntime.WPF.targets'))" />
   </Target>
+  <Import Project="packages\Esri.ArcGISRuntime.runtimes.win.100.11.2\build\net461\Esri.ArcGISRuntime.runtimes.win.targets" Condition="Exists('packages\Esri.ArcGISRuntime.runtimes.win.100.11.2\build\net461\Esri.ArcGISRuntime.runtimes.win.targets')" />
+  <Import Project="packages\Esri.ArcGISRuntime.WPF.100.7.0\build\net461\Esri.ArcGISRuntime.WPF.targets" Condition="Exists('packages\Esri.ArcGISRuntime.WPF.100.7.0\build\net461\Esri.ArcGISRuntime.WPF.targets')" />
 </Project>
