@@ -9,6 +9,13 @@
     <Grid>
         <Button x:Name="tableButton" Click="tableButton_Click" Content="Back to Table" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75"/>
         <esri:MapView x:Name="mapView" Margin="0,35,0,0">
+            <esri:MapView.Resources>
+                <Style TargetType="esri:Callout">
+                    <Setter Property="FontFamily" Value="Courier New" />
+                    <Setter Property="BorderBrush" Value="Red" />
+                    <Setter Property="BorderThickness" Value="5" />
+                </Style>
+            </esri:MapView.Resources>
             <esri:MapView.GraphicsOverlays>
                 <esri:GraphicsOverlay x:Name="MapGraphics"/>
             </esri:MapView.GraphicsOverlays>

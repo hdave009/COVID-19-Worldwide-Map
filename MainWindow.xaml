@@ -13,7 +13,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Button x:Name="refreshButton" Grid.ColumnSpan="2" Content="Refresh" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="refreshButton_Click" Margin="0,5,0,0"/>
-        <DataGrid x:Name="dataTable" IsReadOnly="True" Grid.ColumnSpan="2" HorizontalAlignment="Center" Height="Auto" Margin="0,30,0,0" VerticalAlignment="Center" ItemsSource="{Binding Countries}" ColumnWidth="*">
+        <DataGrid x:Name="dataTable" IsReadOnly="True" Grid.ColumnSpan="2" HorizontalAlignment="Center" Height="Auto" Margin="0,30,0,0" VerticalAlignment="Center" ItemsSource="{Binding CountryModels}" ColumnWidth="*">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="Background" Value="Gray"/>

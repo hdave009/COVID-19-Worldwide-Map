@@ -1,19 +1,25 @@
 ﻿using HtmlAgilityPack;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Web;
 
 namespace COVID_19_Information
 {
 	public class Scraper
 	{
-		private ObservableCollection<EntryModel> _countries = new ObservableCollection<EntryModel>();
+		private Dictionary<string, EntryModel> _countries = new Dictionary<string,EntryModel>();
 
-		public ObservableCollection<EntryModel> Countries
+		public Dictionary<string, EntryModel> Countries
 		{
 			get { return _countries; }
 			set { _countries = value; }
+		}
+
+		private ObservableCollection<EntryModel> countryModels = new ObservableCollection<EntryModel>();
+
+		public ObservableCollection<EntryModel> CountryModels
+		{
+			get { return countryModels; }
 		}
 
 		public void ScrapeData()
@@ -23,23 +29,32 @@ namespace COVID_19_Information
 			var web = new HtmlWeb();
 			var doc = web.Load(url);
 
-			var table = doc.DocumentNode.SelectSingleNode("//*[@id='main_table_countries_today']/tbody[1]");
-			var countries = table.SelectNodes("//*[@id='main_table_countries_today']/tbody/tr");
+			var table = doc.DocumentNode.SelectSingleNode("//*[@id='main_table_countries_today']");
+			var countries = table.SelectNodes("//*[@id='main_table_countries_today']/tbody[1]/tr");
 
-			countries.RemoveAt(7);
-			countries.RemoveAt(220);
+            for (int i = 8; i < countries.Count; i++)
+            {
+				try
+				{
+					var country = countries[i];
+					var info = country.InnerText.Split('\n');
 
-			for (int i = 1; i<countries.Count; i++) 
-			{
-				var countryName = HttpUtility.HtmlDecode(countries[i].SelectSingleNode("//*[@id='main_table_countries_today']/tbody/tr["+i.ToString()+"]/td[1]").InnerText);
-				long totalCases = FormatConversion.ConvertAndFormat(HttpUtility.HtmlDecode(countries[i].SelectSingleNode("//*[@id='main_table_countries_today']/tbody/tr[" + i.ToString() + "]/td[2]").InnerText));
-				long totalDeaths = FormatConversion.ConvertAndFormat(HttpUtility.HtmlDecode(countries[i].SelectSingleNode("//*[@id='main_table_countries_today']/tbody/tr[" + i.ToString() + "]/td[4]").InnerText));
-				var totalRecovered = FormatConversion.ConvertAndFormat(HttpUtility.HtmlDecode(countries[i].SelectSingleNode("//*[@id='main_table_countries_today']/tbody/tr[" + i.ToString() + "]/td[6]").InnerText));
-				var activeCases = FormatConversion.ConvertAndFormat(HttpUtility.HtmlDecode(countries[i].SelectSingleNode("//*[@id='main_table_countries_today']/tbody/tr[" + i.ToString() + "]/td[7]").InnerText));
+					var countryName = info[2];
+					long totalCases = Convert.ToInt64(string.Join("", info[3].Split(',')));
+					long totalDeaths = Convert.ToInt64(string.Join("", info[5].Split(',')));
+					long totalRecovered = Convert.ToInt64(string.Join("", info[7].Split(',')));
+					long activeCases = Convert.ToInt64(string.Join("", info[9].Split(',')));
 
-				_countries.Add(new EntryModel { Country = countryName, TotalCases = totalCases, TotalDeaths = totalDeaths, TotalRecovered = totalRecovered, ActiveCases = activeCases });
-			}
-		}
+					var model = new EntryModel { Country = countryName, TotalCases = totalCases, TotalDeaths = totalDeaths, TotalRecovered = totalRecovered, ActiveCases = activeCases };
+
+					_countries.Add(countryName, model);
+					countryModels.Add(model);
+				} catch (Exception)
+                {
+					continue;
+                }
+            }
+        }
 
 	}
 }
